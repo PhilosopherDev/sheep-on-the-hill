@@ -1,3 +1,5 @@
+import { Sheep } from "./sheep.js";
+
 export class SheepController {
     constructor() {
         this.img = new Image();
