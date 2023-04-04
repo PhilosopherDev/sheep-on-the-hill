@@ -29,14 +29,25 @@ export class Hill {
         let prev = cur;
 
         let dots = []; // 양의 좌표를 찾는데 사용하기 위한 변수
-
+        cur.x += this.speed; // 언덕 움직이게 적용
         ctx.moveTo(cur.x, cur.y);
+
+        // 언덕이 계속 이어질수 있게 만들어서 붙여줌
+        if (cur.x > -this.gap) {
+            this.points.unshift({
+                x: -(this.gap * 2),
+                y: this.getY(),
+            });
+        } else if (cur.x > this.stageWidth + this.gap) {
+            this.points.splice(-1);
+        }
 
         let prevCx = cur.x;
         let prevCy = cur.y;
 
         for (let i = 1; i < this.points.length; i++) {
             cur = this.points[i];
+            cur.x += this.speed; // 언덕 움직이게 적용
             const cx = (prev.x + cur.x) / 2;
             const cy = (prev.y + cur.y) / 2;
             ctx.quadraticCurveTo(prev.x, prev.y, cx, cy); // 곡선 그리기
